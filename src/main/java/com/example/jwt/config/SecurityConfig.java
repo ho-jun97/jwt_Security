@@ -1,12 +1,15 @@
 package com.example.jwt.config;
 
+import com.example.jwt.config.jwt.JwtAuthenticationFilter;
 import com.example.jwt.filter.MyFilter1;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.filter.CorsFilter;
@@ -26,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(corsFilter) //@CrossOrigin(인증x), 시큐리티 필터에 등록 인증(O)
                 .formLogin().disable()
                 .httpBasic().disable()
+                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // AuthenticationManger
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
@@ -34,5 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/admin/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encodePwd(){
+        return new BCryptPasswordEncoder();
     }
 }
