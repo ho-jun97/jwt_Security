@@ -34,12 +34,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // 1. username, password 받아서
         try {
-//            BufferedReader br = request.getReader();
-//
-//            String input = null;
-//            while((input=br.readLine())!=null){
-//                System.out.println(input);
-//            }
             ObjectMapper om = new ObjectMapper(); // json 데이터를 parsing 해줌
             User user = om.readValue(request.getInputStream(), User.class);
             System.out.println(user);
@@ -77,11 +71,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // RSA 방식은 아니구 Hash 암호방식
         String jwtToken = JWT.create()
                 .withSubject("cos토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
+                .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUsername())
-                .sign(Algorithm.HMAC512("cos"));
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        response.addHeader("Authorization", "Bearer "+jwtToken);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
     }
 }
