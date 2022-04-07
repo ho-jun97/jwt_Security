@@ -1,6 +1,8 @@
-package com.example.jwt.model;
+package com.example.jwt.domain.user;
 
 import lombok.Data;
+import lombok.Getter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Data
+@Getter
 @Entity
 public class User {
 
@@ -28,5 +30,18 @@ public class User {
         }else{
             return new ArrayList<>();
         }
+    }
+
+    public void userRole(){
+        this.roles = "ROLE_USER";
+    }
+    public void managerRole(){
+        this.roles = "ROLE_MANAGER";
+    }
+    public void adminRole(){
+        this.roles = "ROLE_ADMIN";
+    }
+    public void setPwd(BCryptPasswordEncoder bCryptPasswordEncoder){
+        this.password = bCryptPasswordEncoder.encode(this.password);
     }
 }

@@ -2,8 +2,7 @@ package com.example.jwt.config;
 
 import com.example.jwt.config.jwt.JwtAuthenticationFilter;
 import com.example.jwt.config.jwt.JwtAuthorizationFilter;
-import com.example.jwt.filter.MyFilter1;
-import com.example.jwt.repository.UserRepository;
+import com.example.jwt.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration

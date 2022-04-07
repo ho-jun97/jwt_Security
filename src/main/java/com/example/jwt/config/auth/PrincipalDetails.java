@@ -1,6 +1,6 @@
 package com.example.jwt.config.auth;
 
-import com.example.jwt.model.User;
+import com.example.jwt.domain.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

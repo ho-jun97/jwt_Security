@@ -1,7 +1,7 @@
 package com.example.jwt.config.auth;
 
-import com.example.jwt.model.User;
-import com.example.jwt.repository.UserRepository;
+import com.example.jwt.domain.user.User;
+import com.example.jwt.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
